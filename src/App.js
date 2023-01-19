@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Header from './Components/Header';
+import {Route , Routes} from 'react-router-dom';
+import React from "react";
+import  SignIn  from "./Components/SignIn";
+import AddClothes from "./Components/AddClothes";
+import ItemDetail from "./Components/ItemDetail";
+import Clothes from "./Components/Clothes";
+import Home from "./Components/Home";
 function App() {
+  const user = localStorage.getItem("email");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+       <header>
+             <Header/>
+             </header> 
+      <main>
+      <Routes>
+      <Route path ="/signIn" element={<SignIn/>} exact/>
+      {user && <Route path ="/add" element={<AddClothes/>} exact/>}
+      {user &&   <Route path ="/home" element={<Home/>} exact/>}
+      {user &&  <Route path ="/clothes" element={<Clothes/>} exact/>}
+      {user &&  <Route path ="/updateclothes/:id" element={<ItemDetail/>} exact/>}
+        </Routes>
+      </main>
+
+    </React.Fragment>
+  
   );
 }
 
